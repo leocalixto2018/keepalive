@@ -1,0 +1,13 @@
+name: keepalive
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping cobranca-duplique
+        run: |
+          code=$(curl -fsS -m 60 -o /dev/null -w "%{http_code}" https://cobranca-duplique.onrender.com/ || echo "000")
+          echo "HTTP $code"
